@@ -1,0 +1,58 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-msnmessanger2-dev-c6425-authRole",
+      "UnauthRoleArn": "arn:aws:iam::363420796265:role/amplify-msnmessanger2-dev-c6425-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::363420796265:role/amplify-msnmessanger2-dev-c6425-authRole",
+      "Region": "eu-west-1",
+      "DeploymentBucketName": "amplify-msnmessanger2-dev-c6425-deployment",
+      "UnauthRoleName": "amplify-msnmessanger2-dev-c6425-unauthRole",
+      "StackName": "amplify-msnmessanger2-dev-c6425",
+      "StackId": "arn:aws:cloudformation:eu-west-1:363420796265:stack/amplify-msnmessanger2-dev-c6425/989c81c0-ff34-11ee-8cfa-020ea07725bd",
+      "AmplifyAppId": "d1x6ea8t8unx7q"
+    }
+  },
+  "auth": {
+    "msnmessanger280660e46": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-msnmessanger2-dev-c6425-deployment/amplify-cfn-templates/auth/msnmessanger280660e46-cloudformation-template.json",
+        "logicalId": "authmsnmessanger280660e46"
+      },
+      "lastPushTimeStamp": "2024-04-20T16:44:19.334Z",
+      "output": {
+        "UserPoolId": "eu-west-1_ANi5vun87",
+        "AppClientIDWeb": "17hjn1a4mh2jpqk4jjnidti13p",
+        "AppClientID": "6jurafdibfmtpbufm0cubt7mc0",
+        "IdentityPoolId": "eu-west-1:976fe9c6-0f1a-49b6-ab7e-290b311947b0",
+        "UserPoolArn": "arn:aws:cognito-idp:eu-west-1:363420796265:userpool/eu-west-1_ANi5vun87",
+        "IdentityPoolName": "msnmessanger280660e46_identitypool_80660e46__dev",
+        "UserPoolName": "msnmessanger280660e46_userpool_80660e46"
+      },
+      "lastPushDirHash": "XjeX83Bxyu3jYLzlfYF8JXpkhRk="
+    }
+  }
+}
