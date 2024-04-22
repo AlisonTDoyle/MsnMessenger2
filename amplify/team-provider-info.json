@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-msnmessanger2-dev-c6425-authRole",
+      "UnauthRoleArn": "arn:aws:iam::363420796265:role/amplify-msnmessanger2-dev-c6425-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::363420796265:role/amplify-msnmessanger2-dev-c6425-authRole",
+      "Region": "eu-west-1",
+      "DeploymentBucketName": "amplify-msnmessanger2-dev-c6425-deployment",
+      "UnauthRoleName": "amplify-msnmessanger2-dev-c6425-unauthRole",
+      "StackName": "amplify-msnmessanger2-dev-c6425",
+      "StackId": "arn:aws:cloudformation:eu-west-1:363420796265:stack/amplify-msnmessanger2-dev-c6425/989c81c0-ff34-11ee-8cfa-020ea07725bd",
+      "AmplifyAppId": "d1x6ea8t8unx7q"
+    },
+    "categories": {
+      "auth": {
+        "msnmessanger280660e46": {}
+      }
+    }
+  }
+}

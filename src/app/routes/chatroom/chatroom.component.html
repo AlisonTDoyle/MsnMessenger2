@@ -1,24 +1,33 @@
 <div class="container">
-    <div class="card mb-3 d-flex" style="width: 50%;">
+    <!-- <div class="card mb-3" style="max-width: 50%;">
         <div class="card-header text-bg-secondary">
             Username
         </div>
-    
         <div class="card-body">
             Someone else sent this message. Content, content, content.
         </div>
     </div>
-    
-    <div class="card mb-3 d-flex" style="width: 50%;">
+
+    <div class="card mb-3 float-end">
         <div class="card-header text-bg-primary">
             You
         </div>
-    
         <div class="card-body">
             You just sent this message. Content, content, content.
         </div>
     </div>
-    
+
+    <div class="card mb-3 float-end" style="max-width: 50%;">
+        <div class="card-header text-bg-primary">
+            You
+        </div>
+        <div class="card-body">
+            <img src="https://placehold.co/600x400" alt="" class="w-100 rounded">
+        </div>
+    </div> -->
+
+    <app-received-message *ngFor="let msg of messages" [receivedmessage]="msg"></app-received-message>
+
     <form>
         <div class="input-group mb-3">
             <input type="text" class="form-control" placeholder="Enter your message here...">

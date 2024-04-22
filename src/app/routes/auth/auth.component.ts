@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SignInFormComponent } from '../../components/auth/sign-in-form/sign-in-form.component';
-import { SignOutFormComponent } from '../../components/auth/sign-out-form/sign-out-form.component';
+import { SignOutFormComponent } from '../../components/auth/sign-up-form/sign-out-form.component';
 import { ForgotPasswordFormComponent } from '../../components/auth/forgot-password-form/forgot-password-form.component';
 import { CommonModule } from '@angular/common';
 
