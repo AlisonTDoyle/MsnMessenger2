@@ -6,5 +6,6 @@ import { AuthComponent } from './routes/auth/auth.component';
 import { AwsAuthComponent } from './components/auth/aws-auth/aws-auth.component';
 
 export const routes: Routes = [
-    {path:"auth", component: AuthComponent}
+    {path:"auth", component: AuthComponent},
+    {path:"", component:ChatroomComponent}
 ];

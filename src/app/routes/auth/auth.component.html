@@ -1,4 +1,4 @@
-<div *ngIf="selectedForm == 'signIn'; else nonDefaultForms">
+<!-- <div *ngIf="selectedForm == 'signIn'; else nonDefaultForms">
     <app-sign-in-form (changeForm)="ChangeSelectedForm($event)"></app-sign-in-form>
 </div>
 
@@ -10,4 +10,6 @@
     <ng-template #forgotPasswordForm>
         <app-forgot-password-form (changeForm)="ChangeSelectedForm($event)"></app-forgot-password-form>
     </ng-template>
-</ng-template>
+</ng-template> -->
+
+<app-aws-auth></app-aws-auth>

@@ -3,6 +3,7 @@ import { SignInFormComponent } from '../../components/auth/sign-in-form/sign-in-
 import { SignOutFormComponent } from '../../components/auth/sign-up-form/sign-out-form.component';
 import { ForgotPasswordFormComponent } from '../../components/auth/forgot-password-form/forgot-password-form.component';
 import { CommonModule } from '@angular/common';
+import { AwsAuthComponent } from '../../components/auth/aws-auth/aws-auth.component';
 
 @Component({
   selector: 'app-auth',
@@ -12,6 +13,7 @@ import { CommonModule } from '@angular/common';
     , SignOutFormComponent
     , ForgotPasswordFormComponent
     , CommonModule
+    , AwsAuthComponent
   ],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss'
