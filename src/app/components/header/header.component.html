@@ -4,7 +4,7 @@
             <a class="navbar-brand">MSN Messanger 2.0</a>
 
             <div class="d-flex">
-                <button class="btn btn-primary">Sign Out</button>
+                <button *ngIf="userSignedIn" class="btn btn-primary" (click)="SignOut()">Sign Out</button>
             </div>
         </div>
     </nav>

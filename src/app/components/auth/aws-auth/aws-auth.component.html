@@ -1,10 +1,12 @@
-<amplify-authenticator>
+<amplify-authenticator class="my-5">
     <ng-template
       amplifySlot="authenticated"
       let-user="user"
       let-signOut="signOut"
     >
-      <h1>Welcome {{ user.username }}!</h1>
-      <button (click)="signOut()">Sign Out</button>
+      <div class="text-center">
+        <h1>You've Logged In!</h1>
+        <a class="btn btn-primary" (click)="RedirectToChatRoom()" routerLink="/">Click here to start chatting!</a>
+      </div>
     </ng-template>
   </amplify-authenticator>
