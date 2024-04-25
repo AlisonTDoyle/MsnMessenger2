@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { fetchUserAttributes, getCurrentUser, signOut, signUp } from 'aws-amplify/auth';
+import { ResetPasswordOutput, fetchUserAttributes, getCurrentUser, resetPassword, signIn, signOut, signUp } from 'aws-amplify/auth';
 import { Observable, Subject } from 'rxjs';
 
 @Injectable({
@@ -57,5 +57,42 @@ export class CognitoService {
     } catch (error) {
       console.error("Error: " + error)
     }
+  }
+
+  async SignIn(username: string, password: string) {
+    try {
+      const { isSignedIn, nextStep } = await signIn({ username, password });
+      this._userLoggedIn.next(true);
+      this._router.navigate(['/']);
+    } catch (error) {
+      console.error("Error: " + error)
+    }
+  }
+
+  //#region Password Reset
+  async RequestReset(username: string) {
+    try {
+      const output = await resetPassword({ username });
+      this.handleResetPasswordNextSteps(output)
+    } catch (error) {
+      console.error("Error: " + error)
+    }
+  }
+
+  handleResetPasswordNextSteps(output: ResetPasswordOutput) {
+    const { nextStep } = output;
+    switch (nextStep.resetPasswordStep) {
+      case 'CONFIRM_RESET_PASSWORD_WITH_CODE':
+        const codeDeliveryDetails = nextStep.codeDeliveryDetails;
+        console.log(
+          `Confirmation code was sent to ${codeDeliveryDetails.deliveryMedium}`
+        );
+        // Collect the confirmation code from the user and pass to confirmResetPassword.
+        break;
+      case 'DONE':
+        console.log('Successfully reset password.');
+        break;
+    }
+    //#endregion
   }
 }
