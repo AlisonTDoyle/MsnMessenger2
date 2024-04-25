@@ -1,12 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { IMessage } from '../../../interfaces/message';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-sent-message',
   standalone: true,
-  imports: [],
+  imports: [
+    DatePipe
+  ],
   templateUrl: './sent-message.component.html',
   styleUrl: './sent-message.component.scss'
 })
 export class SentMessageComponent {
-  protected messageText:string | any;
+  // Inputs and outputs
+  @Input() sentMessage:IMessage | any;
+
+  // Properties
+
+  // Constructor
+
+  // Methods
 }

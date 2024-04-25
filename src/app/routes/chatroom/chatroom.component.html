@@ -27,7 +27,7 @@
     </div> -->
 
     <app-received-message *ngFor="let msg of messages" [receivedmessage]="msg"></app-received-message>
-
+    <app-sent-message [sentMessage]="sampleSentMessage"></app-sent-message>
     <form>
         <div class="input-group mb-3">
             <input type="text" class="form-control" placeholder="Enter your message here...">

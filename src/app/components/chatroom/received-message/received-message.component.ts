@@ -1,10 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { IMessage } from '../../../interfaces/message';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-received-message',
   standalone: true,
-  imports: [],
+  imports: [
+    DatePipe
+  ],
   templateUrl: './received-message.component.html',
   styleUrl: './received-message.component.scss'
 })
