@@ -88,6 +88,7 @@ export class CognitoService {
           `Confirmation code was sent to ${codeDeliveryDetails.deliveryMedium}`
         );
         // Collect the confirmation code from the user and pass to confirmResetPassword.
+        this._router.navigate(['/reset-password']);
         break;
       case 'DONE':
         console.log('Successfully reset password.');
