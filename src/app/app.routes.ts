@@ -8,7 +8,7 @@ import { AuthService } from './guards/auth/auth.service';
 import { ChangePasswordComponent } from './components/auth/change-password/change-password.component';
 
 export const routes: Routes = [
-    {path:"auth", component: AuthComponent},
+    {path:"auth", component: AwsAuthComponent},
     {path:"", component:ChatroomComponent, canActivate: [AuthService]},
     {path:"reset-password", component:ChangePasswordComponent}
 ];

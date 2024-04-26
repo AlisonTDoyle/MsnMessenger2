@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { ResetPasswordOutput, fetchUserAttributes, getCurrentUser, resetPassword, signIn, signOut, signUp } from 'aws-amplify/auth';
+import { ResetPasswordOutput, confirmResetPassword, fetchUserAttributes, getCurrentUser, resetPassword, signIn, signOut, signUp } from 'aws-amplify/auth';
 import { Observable, Subject } from 'rxjs';
 
 @Injectable({
@@ -64,8 +64,10 @@ export class CognitoService {
       const { isSignedIn, nextStep } = await signIn({ username, password });
       this._userLoggedIn.next(true);
       this._router.navigate(['/']);
+      return "";
     } catch (error) {
       console.error("Error: " + error)
+      return error;
     }
   }
 
@@ -94,6 +96,15 @@ export class CognitoService {
         console.log('Successfully reset password.');
         break;
     }
-    //#endregion
   }
+
+  async ResetPassword(username:string, confirmationCode:string, newPassword:string) {
+    try {
+      await confirmResetPassword({username, confirmationCode, newPassword})
+      this._router.navigate(['/auth']);
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  //#endregion
 }

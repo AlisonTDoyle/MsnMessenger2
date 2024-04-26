@@ -11,6 +11,9 @@
                 <input type="password" name="" id="" class="form-control" #password>
                 <a class="btn btn-link" (click)="ChangeForm('forgotPassword')">Forgot password?</a>
             </div>
+            <div *ngIf="errorMessage != '' || errorMessage != null" class="text-center p-1 rounded border border-danger mb-3">
+                {{errorMessage}}
+            </div>
             <button class="btn btn-primary mb-3" (click)="SignIn(email.value, password.value)">Sign In</button>
             <p class="text-center" (click)="ChangeForm('signUp')">Don't have an account? <a class="btn-link">Sign up to
                     start talking.</a></p>
