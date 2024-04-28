@@ -1,5 +1,5 @@
 import { Component, ElementRef, Renderer2 } from '@angular/core';
-import { IMessage } from '../../interfaces/message';
+import { Message } from '../../interfaces/message';
 import { MessagingService } from '../../services/messaging/messaging.service';
 import { ReceivedMessageComponent } from '../../components/chatroom/received-message/received-message.component';
 import { CommonModule } from '@angular/common';
@@ -19,8 +19,8 @@ import { CognitoService } from '../../services/cognito/cognito.service';
 })
 export class ChatroomComponent {
   // Properties
-  protected messages: IMessage[] = [];
-  protected sampleSentMessage: IMessage = {
+  protected messages: Message[] = [];
+  protected sampleSentMessage: Message = {
     message: "hello world",
     username: "test@email.com",
     id: "1234",
@@ -48,4 +48,19 @@ export class ChatroomComponent {
     console.log(result)
     return false;
   }
+  async SendMessage(messageTest:string){
+    fetch("https://qo9q9l3so3.execute-api.eu-west-1.amazonaws.com/Prod/sendmessage", {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: messageTest
+    })
+      .then(response => response.text())
+      .then(text => {
+        console.log(messageTest);
+      });
+  };
+  
 }

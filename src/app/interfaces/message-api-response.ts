@@ -1,5 +1,5 @@
-import { IMessage } from "./message";
+import { Message } from "./message";
 
 export interface IMessageApiResponse {
-    messages:IMessage[];
+    messages:Message[];
 }

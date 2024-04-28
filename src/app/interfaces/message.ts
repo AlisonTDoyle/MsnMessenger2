@@ -5,3 +5,9 @@ export interface IMessage {
     message: string;
     id: string;
 }
+export interface Message{
+    createdAt: string;
+    username: string;
+    message: string;
+    id: string;
+}

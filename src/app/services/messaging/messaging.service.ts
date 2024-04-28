@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs';
-import { IMessage } from '../../interfaces/message';
+import { Message } from '../../interfaces/message';
 import { IMessageApiResponse } from '../../interfaces/message-api-response';
 
 @Injectable({
@@ -16,10 +16,11 @@ export class MessagingService {
 
   // Methods
   public FetchMessages() {
-    return this._http.get<IMessage[]>(this._mockApi)
+    return this._http.get<Message[]>(this._mockApi)
     .pipe(
       // Debug message
       tap((data) => console.log(data))
+       
     );
   }
 }
