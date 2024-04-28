@@ -3,7 +3,7 @@ export interface IMessage {
     createdAt: string;
     username: string;
     message: string;
-    id: string;
+    // id: string;
 }
 export interface Message{
     createdAt: string;

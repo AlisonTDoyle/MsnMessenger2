@@ -40,8 +40,8 @@ export class CognitoService {
 
   async UserLoggedIn() {
     try {
-      const { username } = await getCurrentUser();
-      this._userLoggedIn.next(true);
+      const { signInDetails  } = await getCurrentUser();
+      this._userLoggedIn.next(signInDetails?.loginId);
       return true;
     } catch (error) {
       console.error("Error: " + error);
@@ -70,6 +70,8 @@ export class CognitoService {
       return error;
     }
   }
+
+
 
   //#region Password Reset
   async RequestReset(username: string) {

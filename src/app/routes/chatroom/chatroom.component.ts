@@ -1,5 +1,5 @@
 import { Component, ElementRef, Renderer2 } from '@angular/core';
-import { Message } from '../../interfaces/message';
+import { IMessage, Message } from '../../interfaces/message';
 import { MessagingService } from '../../services/messaging/messaging.service';
 import { ReceivedMessageComponent } from '../../components/chatroom/received-message/received-message.component';
 import { CommonModule } from '@angular/common';
@@ -19,13 +19,10 @@ import { CognitoService } from '../../services/cognito/cognito.service';
 })
 export class ChatroomComponent {
   // Properties
-  protected messages: Message[] = [];
-  protected sampleSentMessage: Message = {
-    message: "hello world",
-    username: "test@email.com",
-    id: "1234",
-    createdAt: "2024-04-25T20:40:02.605Z"
-  }
+  private test :object  | any
+  protected messages: IMessage[] = [];
+  protected currentUser : string |any;
+
   // Constructor
   constructor(private _messaging: MessagingService, private _renderer: Renderer2, private _el: ElementRef, private _cognito: CognitoService) {
     this.FetchMessages();
@@ -33,8 +30,8 @@ export class ChatroomComponent {
 
   // Methods
   private FetchMessages() {
-    this._messaging.FetchMessages().subscribe((messages) => {
-      this.messages = messages
+    this._messaging.FetchMessages().subscribe((response) => {
+      this.messages = response.Items
     })
   }
 
@@ -44,23 +41,32 @@ export class ChatroomComponent {
   }
 
   async GetCurrentUser() {
-    let result = await this._cognito.UserLoggedIn();
-    console.log(result)
+    await this._cognito.userLoggedIn$.subscribe((username) => {
+      this.currentUser = username
+    });
     return false;
   }
-  async SendMessage(messageTest:string){
-    fetch("https://qo9q9l3so3.execute-api.eu-west-1.amazonaws.com/Prod/sendmessage", {
-      method: "POST",
-      mode: "no-cors",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: messageTest
-    })
-      .then(response => response.text())
-      .then(text => {
-        console.log(messageTest);
-      });
-  };
-  
+
+  ngOnChanges() {
+    console.log(this.test);
+  }
+
+  SendMessage(messageText: string) {
+    //   const data = JSON.stringify({ messageText });
+
+    //   fetch("https://z1q5fqlqja.execute-api.eu-west-1.amazonaws.com/PROD/message", {
+    //     method: "POST",
+    //     mode: "no-cors",
+    //     headers: {
+    //       "Content-Type": "application/json"
+    //     },
+    //     body: data
+    //   })
+    //     .then(response => response.text())
+    //     .then(text => {
+    //       console.log(text);
+    //     });
+    // };
+    this.test = this._messaging.SendMessage(messageText);
+  }
 }
