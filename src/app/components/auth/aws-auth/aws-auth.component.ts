@@ -28,6 +28,5 @@ export class AwsAuthComponent {
   }
 
   protected RedirectToChatRoom() {
-    this._router.navigate([''])
   }
 }
