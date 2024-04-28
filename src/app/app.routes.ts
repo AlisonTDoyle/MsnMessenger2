@@ -10,5 +10,5 @@ import { ChangePasswordComponent } from './components/auth/change-password/chang
 export const routes: Routes = [
     {path:"auth", component: AwsAuthComponent},
     {path:"", component:ChatroomComponent, canActivate: [AuthService]},
-    {path:"reset-password", component:ChangePasswordComponent}
+    // {path:"reset-password", component:ChangePasswordComponent}
 ];
