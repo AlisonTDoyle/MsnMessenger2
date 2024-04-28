@@ -1,23 +1,21 @@
 <div class="container mt-3">
-    <app-received-message *ngFor="let msg of messages" [receivedmessage]="msg"></app-received-message>
-    <app-sent-message [sentMessage]="sampleSentMessage"></app-sent-message>
+  <app-received-message *ngFor="let msg of messages" [receivedmessage]="msg"></app-received-message>
+  <app-sent-message [sentMessage]="sampleSentMessage"></app-sent-message>
 </div>
 <div class="sticky-bottom">
+  <form>
     <div class="input-group bg-body-secondary px-5 py-3">
-        <!-- <input type="text" class="form-control " placeholder="Enter your message here..." #text>
-        <button class="btn btn-primary" (click)="GetCurrentUser()" id="submit-button"><i class="bi bi-send"></i></button> -->
-        <form>
-            <label for="message">message :</label>
-            <input type="text" class="form-control" id="message" name="message" placeholder="Enter your message here.....">
-            <button type="button" id="submit-button" class="btn btn-primary" (click)="GetCurrentUser()"><i class="bi bi-send"></i></button>
-        </form>
+      <input type="text" class="form-control" id="message" name="message" placeholder="Enter your message here.....">
+      <button type="button" id="submit-button" class="btn btn-primary" (click)="GetCurrentUser()"><i
+          class="bi bi-send"></i></button>
     </div>
+  </form>
 
-    <script>
-    document.getElementById("submit-button").addEventListener("click", function() {
+  <script>
+    document.getElementById("submit-button").addEventListener("click", function () {
       const message = document.getElementById("text").value;
 
-      const data = JSON.stringify({message});
+      const data = JSON.stringify({ message });
 
       fetch("https://z1q5fqlqja.execute-api.eu-west-1.amazonaws.com/PROD/message", {
         method: "POST",
@@ -32,5 +30,5 @@
           console.log(text);
         });
     });
-    </script>
+  </script>
 </div>
