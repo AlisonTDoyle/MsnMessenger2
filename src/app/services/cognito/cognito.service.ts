@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { ResetPasswordOutput, confirmResetPassword, fetchUserAttributes, getCurrentUser, resetPassword, signIn, signOut, signUp } from 'aws-amplify/auth';
-import { Observable, Subject } from 'rxjs';
+import { ResetPasswordOutput, confirmResetPassword, getCurrentUser, resetPassword, signIn, signOut, signUp } from 'aws-amplify/auth';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,7 @@ export class CognitoService {
   // Methods
   async handleSignUp(username: string, password: string, email: string) {
     try {
+      // Signup user
       const { isSignUpComplete, userId, nextStep } = await signUp(
         {
           username,
@@ -32,6 +33,7 @@ export class CognitoService {
           }
         });
 
+      // Debug message
       console.log(userId);
     } catch (error) {
       console.log('error signing up:', error);
@@ -40,8 +42,12 @@ export class CognitoService {
 
   async UserLoggedIn() {
     try {
+      // Get login details of user
       const { signInDetails  } = await getCurrentUser();
+
+      // Update subject's current value
       this._userLoggedIn.next(signInDetails?.loginId);
+
       return true;
     } catch (error) {
       console.error("Error: " + error);
@@ -58,8 +64,13 @@ export class CognitoService {
 
   async SignOut() {
     try {
+      // Sign out user
       await signOut();
+
+      // Set loggin in status to false
       this._userLoggedIn.next(false);
+
+      // Re route user
       this._router.navigate(['/auth']);
     } catch (error) {
       console.error("Error: " + error)

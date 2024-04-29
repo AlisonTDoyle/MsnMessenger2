@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap, throwError } from 'rxjs';
-import { Message } from '../../interfaces/message';
 import { IMessageApiResponse } from '../../interfaces/message-api-response';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class MessagingService {
   // Properties
   private _mockApi = "https://6626c4e9b625bf088c069641.mockapi.io/messages/messages";
@@ -27,12 +27,14 @@ export class MessagingService {
   }
 
   public SendMessage(messageText: string, username:string) {
+    // Format request body
     let requestBody = {
       "message": messageText,
       "username": username,
       "createdAt": new Date().toString()
     };
 
+    // Set any headers
     let options = {
       "headers": {
         'Content-Type': 'application/json',
@@ -41,8 +43,7 @@ export class MessagingService {
       }
     }
 
-    console.log(requestBody);
-
+    // Send message to AWS
     return this._http.post(this._prodApi, requestBody, options)
       .pipe(
         // Debug message

@@ -1,8 +1,6 @@
 <div class="container mt-3">
-  <!-- <app-received-message *ngFor="let msg of messages" [receivedmessage]="msg"></app-received-message> -->
-  <!-- <app-sent-message [sentMessage]="sampleSentMessage"></app-sent-message> -->
   <div *ngFor="let msg of messages">
-    <app-received-message *ngIf="msg.username != currentUser; else sentMessage" [receivedmessage]="msg"></app-received-message>
+    <app-received-message *ngIf="msg.username.toLowerCase() != currentUser.toLowerCase() else sentMessage" [receivedmessage]="msg"></app-received-message>
     <ng-template #sentMessage>
       <app-sent-message [sentMessage]="msg"></app-sent-message>
     </ng-template>
