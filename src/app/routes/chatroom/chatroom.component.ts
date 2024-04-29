@@ -1,10 +1,11 @@
-import { Component, ElementRef, Renderer2 } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { IMessage, Message } from '../../interfaces/message';
 import { MessagingService } from '../../services/messaging/messaging.service';
 import { ReceivedMessageComponent } from '../../components/chatroom/received-message/received-message.component';
 import { CommonModule } from '@angular/common';
 import { SentMessageComponent } from '../../components/chatroom/sent-message/sent-message.component';
 import { CognitoService } from '../../services/cognito/cognito.service';
+import { getCurrentUser } from 'aws-amplify/auth';
 
 @Component({
   selector: 'app-chatroom',
@@ -17,7 +18,7 @@ import { CognitoService } from '../../services/cognito/cognito.service';
   templateUrl: './chatroom.component.html',
   styleUrl: './chatroom.component.scss'
 })
-export class ChatroomComponent {
+export class ChatroomComponent implements OnInit {
   // Properties
   private test :object  | any
   protected messages: IMessage[] = [];
@@ -31,8 +32,12 @@ export class ChatroomComponent {
   // Methods
   private FetchMessages() {
     this._messaging.FetchMessages().subscribe((response) => {
-      this.messages = response.Items
+      this.messages = response.Items.sort((b, a) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
     })
+  }
+
+  async ngOnInit() {
+    this.currentUser = await this._cognito.GetCurrentUserEmail();
   }
 
   ngAfterViewInit(): void {
@@ -43,6 +48,7 @@ export class ChatroomComponent {
   async GetCurrentUser() {
     await this._cognito.userLoggedIn$.subscribe((username) => {
       this.currentUser = username
+      console.log(username);
     });
     return false;
   }
@@ -51,22 +57,12 @@ export class ChatroomComponent {
     console.log(this.test);
   }
 
-  SendMessage(messageText: string) {
-    //   const data = JSON.stringify({ messageText });
-
-    //   fetch("https://z1q5fqlqja.execute-api.eu-west-1.amazonaws.com/PROD/message", {
-    //     method: "POST",
-    //     mode: "no-cors",
-    //     headers: {
-    //       "Content-Type": "application/json"
-    //     },
-    //     body: data
-    //   })
-    //     .then(response => response.text())
-    //     .then(text => {
-    //       console.log(text);
-    //     });
-    // };
-    this.test = this._messaging.SendMessage(messageText);
+  async SendMessage(messageText: string) {
+    let email : string | any;
+    email = await this._cognito.GetCurrentUserEmail();
+    this._messaging.SendMessage(messageText, email).subscribe((data) => {
+      console.log(data)
+      this.FetchMessages();
+    });
   }
 }

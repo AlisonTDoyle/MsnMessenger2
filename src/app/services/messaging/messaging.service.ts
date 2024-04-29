@@ -10,7 +10,7 @@ import { IMessageApiResponse } from '../../interfaces/message-api-response';
 export class MessagingService {
   // Properties
   private _mockApi = "https://6626c4e9b625bf088c069641.mockapi.io/messages/messages";
-  private _prodApi = "https://z1q5fqlqja.execute-api.eu-west-1.amazonaws.com/PROD/";
+  private _prodApi = "https://z1q5fqlqja.execute-api.eu-west-1.amazonaws.com/PROD/sendmessage";
   private _fetchMessagesUrl = "https://serya7kr54omebtjbncszqbiey0gahbx.lambda-url.eu-west-1.on.aws/"
 
   // Constructor
@@ -26,14 +26,24 @@ export class MessagingService {
       );
   }
 
-  public SendMessage(messageText: string) {
+  public SendMessage(messageText: string, username:string) {
     let requestBody = {
-      "message": messageText
+      "message": messageText,
+      "username": username,
+      "createdAt": new Date().toString()
+    };
+
+    let options = {
+      "headers": {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST,PATCH,OPTIONS'
+      }
     }
 
     console.log(requestBody);
 
-    return this._http.post(this._prodApi + "message", {"message": "test from application"}, { headers: { "Content-Type": "application/json" }} )
+    return this._http.post(this._prodApi, requestBody, options)
       .pipe(
         // Debug message
         tap((data) => console.log(data)),

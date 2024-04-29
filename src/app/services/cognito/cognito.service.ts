@@ -49,6 +49,13 @@ export class CognitoService {
     }
   }
 
+  async GetCurrentUserEmail() {
+    const { signInDetails  } = await getCurrentUser();
+    let email = signInDetails?.loginId;
+
+    return email;
+  }
+
   async SignOut() {
     try {
       await signOut();
@@ -70,8 +77,6 @@ export class CognitoService {
       return error;
     }
   }
-
-
 
   //#region Password Reset
   async RequestReset(username: string) {
