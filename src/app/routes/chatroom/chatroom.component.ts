@@ -1,10 +1,11 @@
-import { Component, ElementRef, Renderer2 } from '@angular/core';
-import { Message } from '../../interfaces/message';
+import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { IMessage, Message } from '../../interfaces/message';
 import { MessagingService } from '../../services/messaging/messaging.service';
 import { ReceivedMessageComponent } from '../../components/chatroom/received-message/received-message.component';
 import { CommonModule } from '@angular/common';
 import { SentMessageComponent } from '../../components/chatroom/sent-message/sent-message.component';
 import { CognitoService } from '../../services/cognito/cognito.service';
+import { getCurrentUser } from 'aws-amplify/auth';
 
 @Component({
   selector: 'app-chatroom',
@@ -17,15 +18,12 @@ import { CognitoService } from '../../services/cognito/cognito.service';
   templateUrl: './chatroom.component.html',
   styleUrl: './chatroom.component.scss'
 })
-export class ChatroomComponent {
+export class ChatroomComponent implements OnInit {
   // Properties
-  protected messages: Message[] = [];
-  protected sampleSentMessage: Message = {
-    message: "hello world",
-    username: "test@email.com",
-    id: "1234",
-    createdAt: "2024-04-25T20:40:02.605Z"
-  }
+  private test :object  | any
+  protected messages: IMessage[] = [];
+  protected currentUser : string |any;
+
   // Constructor
   constructor(private _messaging: MessagingService, private _renderer: Renderer2, private _el: ElementRef, private _cognito: CognitoService) {
     this.FetchMessages();
@@ -33,9 +31,13 @@ export class ChatroomComponent {
 
   // Methods
   private FetchMessages() {
-    this._messaging.FetchMessages().subscribe((messages) => {
-      this.messages = messages
+    this._messaging.FetchMessages().subscribe((response) => {
+      this.messages = response.Items.sort((b, a) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
     })
+  }
+
+  async ngOnInit() {
+    this.currentUser = await this._cognito.GetCurrentUserEmail();
   }
 
   ngAfterViewInit(): void {
@@ -44,23 +46,23 @@ export class ChatroomComponent {
   }
 
   async GetCurrentUser() {
-    let result = await this._cognito.UserLoggedIn();
-    console.log(result)
+    await this._cognito.userLoggedIn$.subscribe((username) => {
+      this.currentUser = username
+      console.log(username);
+    });
     return false;
   }
-  async SendMessage(messageTest:string){
-    fetch("https://qo9q9l3so3.execute-api.eu-west-1.amazonaws.com/Prod/sendmessage", {
-      method: "POST",
-      mode: "no-cors",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: messageTest
-    })
-      .then(response => response.text())
-      .then(text => {
-        console.log(messageTest);
-      });
-  };
-  
+
+  ngOnChanges() {
+    console.log(this.test);
+  }
+
+  async SendMessage(messageText: string) {
+    let email : string | any;
+    email = await this._cognito.GetCurrentUserEmail();
+    this._messaging.SendMessage(messageText, email).subscribe((data) => {
+      console.log(data)
+      this.FetchMessages();
+    });
+  }
 }

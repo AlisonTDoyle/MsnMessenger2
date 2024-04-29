@@ -1,5 +1,7 @@
-import { Message } from "./message";
+import { IMessage, Message } from "./message";
 
 export interface IMessageApiResponse {
-    messages:Message[];
+    Items:IMessage[];
+    Count:number;
+    ScannedCount:number
 }
